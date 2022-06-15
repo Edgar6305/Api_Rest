@@ -24,8 +24,8 @@ app.use(cors());
 app.use("/api/v1", require("./routes/setup.js"))
 
 //listener
-app.listen(3001, () => {
-  console.log("API server listening on port 3001");
+app.listen(3000, () => {
+  console.log("API server listening on port 3000");
 }); 
 
 var hoy=new Date()
@@ -38,7 +38,7 @@ bot.sendBot("1228075428", "Hola desde Index")
 
 setInterval(( )=> {
   middleware.ActivacionRevision(fechahora)
-}, 1000);
+}, 1000*60*60);
 
 
 module.exports = app;

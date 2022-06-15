@@ -11,7 +11,7 @@ const config = {
     user: 'sa',
     password: 'A$123bcd',
     database: 'RIVHER',
-    server: '127.0.0.1',
+    server: '18.229.172.128',
     pool: {
         max: 10,
         min: 0,
@@ -103,12 +103,19 @@ router.post('/avisos', ensureToken, async (req, res) => {
     var newData = req.token.user
     try {
         await sql.connect(config)
-        var result = await sql.query`Select Tipo, Aviso From Avisos WHERE Empresa= ${newData.empresa} AND CodigoAplicacion= ${newData.aplicacion} AND Estado='AC'`
-
+        const xSql =`Select Tipo, Aviso, Permanencia From Avisos WHERE Empresa='${newData.empresa}' AND CodigoAplicacion='${newData.aplicacion}' AND Estado='AC'`
+        var result = await sql.query (xSql)
+        //console.log(result.recordset[0].Permanencia)
         if (result.rowsAffected[0] == 0){
             res.status(500).json({ "status": "No data" })
         }else{
-            res.status(200).json({ "status": "Succes", "aviso": result.recordset[0]})
+            const Persiste=result.recordset[0].Permanencia
+            const myTipo=result.recordset[0].Tipo
+            if(Persiste == 0) {
+                const xSql =`Update Avisos Set Estado='IN' WHERE Empresa='${newData.empresa}' AND CodigoAplicacion='${newData.aplicacion}' AND Tipo='${myTipo}'`
+                var resultUP = await sql.query (xSql)
+            }
+            res.status(200).json({ "status": "Succes", "Persistencia":"IN","aviso": result.recordset})
             //var botMessage ="Se envió Token Solicitado"
             //bot.sendBot(bot.idChatBaseUno, botMessage)
         }    
@@ -117,7 +124,7 @@ router.post('/avisos', ensureToken, async (req, res) => {
         var botMessage ="Error Descarga  " + err.message
         bot.sendBot(bot.idChatBaseUno, botMessage)
         const response = { status: err}
-        res.status(401).json({ "status": "failed"})
+        res.status(401).json({ "status": "FAILED", "error" : err.message})
     }    
 })
 
