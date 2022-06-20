@@ -28,17 +28,11 @@ app.listen(3000, () => {
   console.log("API server listening on port 3000");
 }); 
 
-var hoy=new Date()
-var fecha= '7/' +(hoy.getMonth()+1) +'/' + hoy.getFullYear()
-var hora= hoy.getHours()+':'+hoy.getMinutes()+':'+hoy.getSeconds()
-var fechahora=fecha+' '+hora
-
-
 bot.sendBot("1228075428", "Hola desde Index")
 
 setInterval(( )=> {
-  middleware.ActivacionRevision(fechahora)
-}, 1000*60*60);
+  middleware.ActivacionRevision(30)
+}, 1000*60*60*24);
 
 
 module.exports = app;

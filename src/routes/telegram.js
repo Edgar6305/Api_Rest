@@ -1,4 +1,5 @@
 const telegraf = require("telegraf")
+const middleware = require("./routes/middleware.js")
 const idChatBaseUno="1228075428"
 
 // TELEGRAM
@@ -16,23 +17,16 @@ bot.start((ctx) => {
      //console.log(ctx.updateSubTypes[0])
    })
 
-bot.on('newChatMembers', (ctx) =>{
-    console.log(ctx)
-    if (ctx.new_chat_member != undefined) {
-        if(ctx.new_chat_member.username != undefined) {
-            ctx.reply(`Welcome Nuevo Miembro ${ctx.new_chat_member.username}`)
-        } else {
-            ctx.reply(`Welcome ${ctx.from.first_name} ${ctx.from.last_name}`)
-        }
-    }
+bot.command(['avisos','Avisos','AVISOS'], (ctx)=>{
+    middleware.ActivacionRevision(0)
+    ctx.reply(`${ctx.from.first_name}  Aviso Actualizado para su ejecución`)
 })
-
-bot.telegram.sendMessage(idChatBaseUno, `Bienvenido Chat Base Uno`);   
 
 function sendBot(idChad, message){
     bot.telegram.sendMessage(idChad,message);
 }
 
+bot.telegram.sendMessage(idChatBaseUno, `Bienvenido al Control Aplicaciones SISMA `);   
 
 module.exports={
     sendBot,

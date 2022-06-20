@@ -105,7 +105,7 @@ router.post('/avisos', ensureToken, async (req, res) => {
         await sql.connect(config)
         const xSql =`Select Tipo, Aviso, Permanencia From Avisos WHERE Empresa='${newData.empresa}' AND CodigoAplicacion='${newData.aplicacion}' AND Estado='AC'`
         var result = await sql.query (xSql)
-        //console.log(result.recordset[0].Permanencia)
+        console.log(result.recordset)
         if (result.rowsAffected[0] == 0){
             res.status(500).json({ "status": "No data" })
         }else{
@@ -125,6 +125,31 @@ router.post('/avisos', ensureToken, async (req, res) => {
         bot.sendBot(bot.idChatBaseUno, botMessage)
         const response = { status: err}
         res.status(401).json({ "status": "FAILED", "error" : err.message})
+    }    
+})
+
+router.post('/usuarios', ensureToken, async (req, res) => {
+    //console.log(req.body )
+    console.log(`INSERT INTO  Licencias Values(${req.token.user.empresa}, ${req.token.user.aplicacion}, ${req.body.usuariosActivos}, ${req.body.usuariosInactivos}, ${req.body.loginActivos}, GetDate())`)
+    try {
+        await sql.connect(config)
+        var result = await sql.query`INSERT INTO  Licencias Values(${req.token.user.empresa}, ${req.token.user.aplicacion}, ${req.body.usuariosActivos}, ${req.body.usuariosInactivos}, ${req.body.loginActivos}, GetDate())`
+
+        if (result.rowsAffected[0] == 0){
+            var botMessage ="Error al Grabar Revisión Empresa " & req.body.empresa
+            bot.sendBot(bot.idChatBaseUno, botMessage)
+            res.status(500).json({ "status": "No data" })
+        }else{
+            var botMessage ="Se Grabo Revisión de Usuarios " + req.token.user.empresa
+            bot.sendBot(bot.idChatBaseUno, botMessage)
+            res.status(200).json({ "status": "OK"})
+        }
+    }
+    catch (err) {
+        var botMessage ="Error Descarga  " + err.message
+        bot.sendBot(bot.idChatBaseUno, botMessage)
+        const response = { status: err}
+        res.status(401).json({ "status": "failed"})
     }    
 })
 

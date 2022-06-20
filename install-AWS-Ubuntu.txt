@@ -192,7 +192,7 @@ git init
 git add .
 git commit -m "first commit" 
 git branch 
-git remote add origin https://github.com/Edgar6305/Rivher.git
+git remote add origin https://github.com/Edgar6305/Api_Rest.git
 git push -u origin master
 
 ===================================================================
@@ -209,12 +209,41 @@ npm insatll -unsafe-perm=true
 
 chmod -R 777 <file name>  cambia derechos a reescribir
 
+df -h espacio en disco
+
+FAZT PM2 Estan los enlaces a los cursos 
+================================================================================================
+Serie disco CMSJ 411290991
+      Frontierstatus 
+================================================================================================
 
 
+XML
+
+<?xml version="1.0"?>
+
+-<Documento>
+
+<Cabecera Libro="0" Observaciones="IR No18, SERVICIO DE RENTING CAMIONES" CentroDeCostos="04010110 " FechaDocumento="2022-4-27" NumeroDocumento="000000005" Prefijo="" Fuente="91" Cedula="830500354 "/>
 
 
+-<Detalle>
+
+<Item CentroDeCostos="04010110 " Cedula="830500354 " BaseRet="0" RetFte="" Anexo="1" ValorCredito="0" ValorDebito="25098336" TipMov="1" DetalleMov="IR No18, SERVICIO DE RENTING CAMIONES" CodCuenta="732505003 " Linea="1"/>
+
+<Item CentroDeCostos="04010110 " Cedula="830500354 " BaseRet="0" RetFte="" Anexo="1" ValorCredito="0" ValorDebito="16732224" TipMov="1" DetalleMov="IR No18, SERVICIO DE RENTING CAMIONES" CodCuenta="732505003 " Linea="2"/>
+
+<Item CentroDeCostos="04010110 " Cedula="830500354 " BaseRet="0" RetFte="" Anexo="1" ValorCredito="41830560" ValorDebito="0" TipMov="2" DetalleMov="IR No18, SERVICIO DE RENTING CAMIONES" CodCuenta="233595006 " Linea="3"/>
+
+<Item CentroDeCostos="04010110 " Cedula="830500354 " BaseRet="0" RetFte="" Anexo="1" ValorCredito="0" ValorDebito="25098336" TipMov="1" DetalleMov="IR No18, SERVICIO DE RENTING CAMIONES" CodCuenta="732505003 " Linea="4"/>
+
+<Item CentroDeCostos="04010110 " Cedula="830500354 " BaseRet="0" RetFte="" Anexo="1" ValorCredito="0" ValorDebito="16732224" TipMov="1" DetalleMov="IR No18, SERVICIO DE RENTING CAMIONES" CodCuenta="732505003 " Linea="5"/>
+
+<Item CentroDeCostos="04010110 " Cedula="830500354 " BaseRet="0" RetFte="" Anexo="1" ValorCredito="41830560" ValorDebito="0" TipMov="2" DetalleMov="IR No18, SERVICIO DE RENTING CAMIONES" CodCuenta="233595006 " Linea="6"/>
+
+</Detalle>
+
+</Documento>
 
 
-
-
-
+scp index.js  ubuntu@ec2-18-229-172-128.sa-east-1.compute.amazonaws.com:/home/ubuntu//sismaiot/rivher/Api_Rest/src/routes/

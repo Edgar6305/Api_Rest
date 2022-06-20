@@ -25,7 +25,7 @@ const config = {
 };
 
 
-async function ActivacionRevision(fecha){
+async function ActivacionRevision(intervalo){
     try {
         await sql.connect(config)
         var result = await sql.query `SELECT Movimientos.Nit, Movimientos.CodigoAplicacion, MIN(DATEDIFF(DAY, Movimientos.Fecha, GETDATE())) AS dias FROM Movimientos INNER JOIN  Empresas ON Movimientos.Nit = Empresas.NIT WHERE Empresas.Estado='AC' GROUP BY Movimientos.Nit, Movimientos.CodigoAplicacion`
@@ -33,7 +33,7 @@ async function ActivacionRevision(fecha){
         if (result.rowsAffected[0] != 0){
             var contador=result.rowsAffected[0] 
             for(i=0; i<contador ; i++ ){
-                if(result.recordset[i].dias > 15){
+                if(result.recordset[i].dias >= intervalo){
                     var resultupdate = await sql.query `UPDATE Avisos SET Estado='AC' WHERE Empresa=${result.recordset[i].Nit} AND CodigoAplicacion=${result.recordset[i].CodigoAplicacion} AND Tipo='REVISION'`
                     if (resultupdate.rowsAffected[0] != 0){
                         var botMessage ="UPDATE Para Revision, Nit " + result.recordset[i].Nit + ' Aplicacion ' + result.recordset[i].CodigoAplicacion
