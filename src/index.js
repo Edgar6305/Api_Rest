@@ -31,7 +31,7 @@ app.listen(3000, () => {
 bot.sendBot("1228075428", "Hola desde Index")
 
 setInterval(( )=> {
-  middleware.ActivacionRevision(30)
+  //middleware.ActivacionRevision(30)
 }, 1000*60*60*24);
 
 
